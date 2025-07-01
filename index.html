@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>voiD's Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      cursor: default;
+    }
+
+    body {
+      background: #0b0b0d;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .nav-buttons {
+      position: fixed;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .nav-buttons button {
+      padding: 12px 24px;
+      border: none;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-buttons button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      scroll-snap-align: start;
+      padding: 80px 20px;
+    }
+
+    .section-home, .section-about, .section-social {
+      background: linear-gradient(to bottom right, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
+      background-blend-mode: overlay;
+    }
+
+    .section-home h1 {
+      font-size: 3.5rem;
+      background: linear-gradient(270deg, #00dbff, #00c0ff, #00dbff);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: animateGradient 6s ease infinite;
+      text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @keyframes animateGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .glass-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      width: 90%;
+      max-width: 700px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    .glass-box:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-5px) scale(1.01);
+    }
+
+    .glass-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent 70%);
+      animation: pulse 8s infinite linear;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(10%, 10%); }
+    }
+
+    .glass-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .glass-box h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #00dbde, #fc00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .glass-box p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      z-index: 1;
+      position: relative;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .social-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .social-icon i {
+      font-size: 2rem;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .social-icon:hover i {
+      transform: scale(1.2);
+    }
+
+    .youtube { background-color: rgba(255, 0, 0, 0.15); }
+    .instagram { background-color: rgba(225, 48, 108, 0.15); }
+    .twitter { background-color: rgba(29, 161, 242, 0.15); }
+
+    @media (max-width: 768px) {
+      .glass-box {
+        padding: 30px;
+      }
+      .glass-box h2 {
+        font-size: 1.6rem;
+      }
+      .social-icon {
+        width: 60px;
+        height: 60px;
+      }
+      .social-icon i {
+        font-size: 1.7rem;
+      }
+      .section-home h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-buttons">
+    <button onclick="scrollToSection('home')">Home</button>
+    <button onclick="scrollToSection('about')">About</button>
+    <button onclick="scrollToSection('social')">Social</button>
+  </div>
+
+  <section id="home" class="section-home">
+    <h1>voiD's Journey</h1>
+  </section>
+
+  <section id="about" class="section-about">
+    <div class="glass-container">
+      <div class="glass-box" data-index="1">
+        <h2>Who Am I?</h2>
+        <p>I'm voiD, a passionate web developer focused on immersive digital experiences.</p>
+      </div>
+      <div class="glass-box" data-index="2">
+        <h2>My Skills</h2>
+        <p>Frontend: HTML, CSS, JavaScript, React<br>Backend: Node.js, Express<br>Tools: Git, VS Code, Figma</p>
+      </div>
+      <div class="glass-box" data-index="3">
+        <h2>My Journey</h2>
+        <p>I started with curiosity and built with passion. I build projects biweekly to grow fast.</p>
+      </div>
+      <div class="glass-box" data-index="4">
+        <h2>My Philosophy</h2>
+        <p>Fail publicly, learn quickly. Share progress and improve through feedback.</p>
+      </div>
+      <div class="glass-box" data-index="5">
+        <h2>Goals</h2>
+        <p>Short: Master React<br>Mid: Build SaaS on MERN<br>Long: Lead impactful dev teams</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="social" class="section-social">
+    <div class="glass-box" data-index="6">
+      <h2>Connect with Me</h2>
+      <div class="social-icons">
+        <a href="https://youtube.com/@voidproto" class="social-icon youtube" target="_blank">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/voidprotocol18?igsh=MTdwamZ1YjQzdTVjaw==" class="social-icon instagram" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://x.com/prehv4?t=xOFx_paPfIcmFDVcnot8jA&s=09" class="social-icon twitter" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const box = entry.target;
+          const delay = parseInt(box.dataset.index) * 200;
+          setTimeout(() => {
+            box.classList.add('visible');
+          }, delay);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.glass-box').forEach(box => observer.observe(box));
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+</body>
+</html>
